@@ -89,6 +89,7 @@
       blacklist:
         tags:
           - NukeOpsUplink
+          - HOSed
 
 # Explosives
 
@@ -377,6 +378,11 @@
     Telecrystal: 8
   categories:
   - UplinkUtility
+  conditions:
+  - !type:StoreWhitelistCondition
+    blacklist:
+      tags:
+      - HOSed
 
 - type: listing
   id: UplinkAgentIDCard
@@ -440,6 +446,11 @@
     Telecrystal: 8
   categories:
   - UplinkUtility
+  conditions:
+  - !type:StoreWhitelistCondition
+    blacklist:
+      tags:
+      - HOSed
 
 - type: listing
   id: UplinkStealthBox
@@ -461,6 +472,11 @@
     Telecrystal: 1
   categories:
   - UplinkUtility
+  conditions:
+  - !type:StoreWhitelistCondition
+    blacklist:
+      tags:
+      - HOSed
 
 - type: listing
   id: UplinkHeadsetEncryptionKey
@@ -472,6 +488,11 @@
     Telecrystal: 2
   categories:
   - UplinkUtility
+  conditions:
+  - !type:StoreWhitelistCondition
+    blacklist:
+      tags:
+      - HOSed
 
 - type: listing
   id: UplinkBinaryTranslatorKey
@@ -527,6 +548,29 @@
   - UplinkUtility
 
 # Implants
+
+- type: listing
+  id: TrackingImplanter
+  name: Tracking Implanter
+  productEntity: TrackingImplanter
+  icon: { sprite: error.rsi, state: error }
+  parent: BaseImplantOnlyImplanter
+  components:
+    - type: Implanter
+      implant: TrackingImplant
+  cost:
+    Telecrystal: 4
+  categories:
+  - UplinkImplants
+  conditions:
+    - !type:StoreWhitelistCondition
+      whitelist:
+        tags:
+          - HOSed
+    - !type:BuyerWhitelistCondition
+      blacklist:
+        components:
+          - SurplusBundle
 
 - type: listing
   id: UplinkStorageImplanter
@@ -627,6 +671,28 @@
     Telecrystal: 2
   categories:
   - UplinkImplants
+  conditions:
+  - !type:StoreWhitelistCondition
+    blacklist:
+      tags:
+      - HOSed
+
+- type: listing
+  id: UplinkDeathAcidifierImplanterHOS
+  name: uplink-death-acidifier-implant-name
+  description: uplink-death-acidifier-implant-desc
+  icon: { sprite: /Textures/Objects/Magic/magicactions.rsi, state: gib }
+  productEntity: DeathAcidifierImplanter
+  cost:
+    Telecrystal: 8
+  categories:
+  - UplinkImplants
+  conditions:
+  - !type:StoreWhitelistCondition
+    whitelist:
+      tags:
+      - HOSed
+
 
 - type: listing
   id: UplinkUplinkImplanter # uplink uplink real
@@ -734,6 +800,11 @@
     Telecrystal: 12
   categories:
   - UplinkBundles
+  conditions:
+  - !type:StoreWhitelistCondition
+    blacklist:
+      tags:
+      - HOSed
 
 - type: listing
   id: UplinkC20RBundle
@@ -745,6 +816,11 @@
     Telecrystal: 17
   categories:
   - UplinkBundles
+  conditions:
+  - !type:StoreWhitelistCondition
+    blacklist:
+      tags:
+      - HOSed
 
 - type: listing
   id: UplinkBulldogBundle
@@ -756,6 +832,11 @@
     Telecrystal: 20
   categories:
   - UplinkBundles
+  conditions:
+  - !type:StoreWhitelistCondition
+    blacklist:
+      tags:
+      - HOSed
 
 - type: listing
   id: UplinkGrenadeLauncherBundle
@@ -767,6 +848,11 @@
     Telecrystal: 25
   categories:
   - UplinkBundles
+  conditions:
+  - !type:StoreWhitelistCondition
+    blacklist:
+      tags:
+      - HOSed
 
 - type: listing
   id: UplinkL6SawBundle
@@ -778,6 +864,11 @@
     Telecrystal: 30
   categories:
   - UplinkBundles
+  conditions:
+  - !type:StoreWhitelistCondition
+    blacklist:
+      tags:
+      - HOSed
 
 - type: listing
   id: UplinkZombieBundle
@@ -813,6 +904,7 @@
     blacklist:
       tags:
       - NukeOpsUplink
+      - HOSed
   - !type:BuyerWhitelistCondition
     blacklist:
       components:
@@ -832,6 +924,7 @@
     blacklist:
       tags:
       - NukeOpsUplink
+      - HOSed
   - !type:BuyerWhitelistCondition
     blacklist:
       components:
@@ -1413,6 +1506,11 @@
     Telecrystal: 2
   categories:
   - UplinkPointless
+  conditions:
+  - !type:StoreWhitelistCondition
+    blacklist:
+      tags:
+      - HOSed
 
 - type: listing
   id: UplinkCarpSuitBundle
@@ -1487,3 +1585,7 @@
   conditions:
   - !type:ListingLimitedStockCondition
     stock: 1
+  - !type:StoreWhitelistCondition
+    blacklist:
+      tags:
+      - HOSed
