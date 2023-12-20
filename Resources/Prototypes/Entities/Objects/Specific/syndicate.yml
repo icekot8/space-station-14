@@ -92,6 +92,22 @@
     balance:
       Telecrystal: 25
 
+- type: entity
+  parent: BaseUplinkRadio
+  name: old radio
+  description: A suspicious-looking old radio asking for re-verification is still attractive...
+  id: HOSUplink
+  suffix: HOS
+  components:
+  - type: Store
+    preset: StorePresetUplink
+    balance:
+      Telecrystal: 10
+  - type: Tag
+    tags:
+    - HOSed
+
+
 #this uplink MUST be used for nukeops, as it has the tag for filtering the listing.
 - type: entity
   parent: BaseUplinkRadio
