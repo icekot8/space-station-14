@@ -271,6 +271,7 @@
   components:
   - type: StorageFill
     contents:
+      - id: HOSUplink
       - id: ClothingEyesHudSecurity
       - id: WeaponDisabler
       - id: ClothingHeadHatBeretHoS
@@ -304,6 +305,7 @@
   components:
   - type: StorageFill
     contents:
+      - id: HOSUplink
       - id: ClothingEyesHudSecurity
       - id: WeaponDisabler
       - id: ClothingHeadHatBeretHoS
