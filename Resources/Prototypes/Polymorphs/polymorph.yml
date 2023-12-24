@@ -11,6 +11,17 @@
   inventory: Drop
 
 - type: polymorph
+  id: Diverse
+  entity: MobDiverse
+  forced: true
+  transferName: true
+  transferDamage: true
+  transferHumanoidAppearance: true
+  inventory: Transfer
+  revertOnCrit: false
+  revertOnDeath: true
+
+- type: polymorph
   id: Monkey
   entity: MobMonkey
   forced: true

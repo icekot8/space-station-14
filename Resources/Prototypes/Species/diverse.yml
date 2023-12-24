@@ -1,0 +1,37 @@
+- type: species
+  id: Diverse
+  name: species-name-diverse
+  roundStart: false
+  prototype: MobDiverse
+  sprites: MobDiverseSprites
+  markingLimits: MobHumanMarkingLimits
+  dollPrototype: MobDiverseDummy
+  skinColoration: HumanToned
+
+- type: speciesBaseSprites
+  id: MobDiverseSprites
+  sprites:
+    HeadTop: CatEars
+
+- type: markingPoints
+  id: MobDiverseMarkingLimits
+  points:
+    Hair:
+      points: 0
+      required: false
+    FacialHair:
+      points: 0
+      required: false
+    Tail:
+      points: 1
+      required: true
+    Snout:
+      points: 1
+      required: true
+    HeadTop:
+      points: 1
+      required: true
+      defaultMarkings: [ CatEars ]
+    HeadSide:
+      points: 1
+      required: false
