@@ -353,7 +353,7 @@
           type: Local
           visualType: Large
           messages: ["nanomachines-effect-mechanization-ends"]
-          probability: 3000.0
+          probability: 1000.0
           conditions:
             - !type:OrganType
                type: Human
@@ -364,7 +364,7 @@
           type: Local
           visualType: Large
           messages: ["nanomachines-effect-mechanization-ends"]
-          probability: 3000.0
+          probability: 1000.0
           conditions:
             - !type:OrganType
                type: Dwarf
