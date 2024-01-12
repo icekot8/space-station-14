@@ -293,3 +293,23 @@
         cell_slot:
           name: power-cell-slot-component-slot-name-default
           startingItem: PowerCellHyper
+
+- type: entity
+  id: PlayerBorgPolymorphPositronicBrain
+  parent: BorgChassisGeneric
+  suffix: PolymorphPositronicBrain
+  components:
+  - type: ContainerFill
+    containers:
+      borg_brain:
+      - PositronicBrain
+
+- type: entity
+  id: PlayerBorgPolymorph
+  parent: BorgChassisGeneric
+  suffix: Polymorph
+  components:
+  - type: ContainerFill
+    containers:
+      borg_brain:
+      - MMIFilled

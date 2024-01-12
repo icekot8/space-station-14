@@ -262,6 +262,7 @@
     FoodBreadBun: 1
     CapacitorStockPart: 2
     # i would add steel to this recipe but the microwave explodes
+    PositronicBrain: 1
 
 - type: microwaveMealRecipe
   id: RecipeSoylentBurger
