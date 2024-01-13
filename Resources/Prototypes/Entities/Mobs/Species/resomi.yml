@@ -1,0 +1,36 @@
+# Anything human specific (e.g. UI, input) goes under MobHuman
+- type: entity
+  parent: BaseMobSpecies
+  id: BaseMobResomi
+  name: Urist McResomi
+  abstract: true
+  components:
+  - type: HumanoidAppearance
+    species: Resomi
+  - type: Hunger
+    starvationDamage:
+      types:
+        Cold: 2
+        Bloodloss: 2
+  - type: Thirst
+  - type: Perishable
+  - type: Butcherable
+    butcheringType: Spike
+    spawned:
+    - id: FoodMeatHuman
+      amount: 5
+  - type: MeleeWeapon
+    animation: WeaponArcClaw
+    soundHit:
+      collection: AlienClaw
+    damage:
+      types:
+        Slash: 5
+
+- type: entity
+  parent: BaseSpeciesDummy
+  id: MobResomiDummy
+  noSpawn: true
+  components:
+  - type: HumanoidAppearance
+    species: Resomi

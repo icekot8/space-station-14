@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "size": {
+    "x": 32,
+    "y": 32
+  },
+  "states": [
+    {
+      "name": "tail_resomi",
+      "directions": 4
+    },
+    {
+      "name": "resomi_mane_beardless",
+      "directions": 4
+    }
+  ]
+}

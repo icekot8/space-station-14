@@ -1,0 +1,17 @@
+- type: marking
+  id: RezomiTail
+  bodyPart: Tail
+  markingCategory: Tail
+  speciesRestriction: [Resomi]
+  sprites:
+  - sprite: Mobs/Customization/resomi_parts.rsi
+    state: tail_rezomi
+
+- type: marking
+  id: ResomiManeBeardless
+  bodyPart: Tail
+  markingCategory: Tail
+  speciesRestriction: [Resomi]
+  sprites:
+  - sprite: Mobs/Customization/resomi_parts.rsi
+    state: resomi_mane_beardless
