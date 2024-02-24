@@ -36,6 +36,12 @@ public sealed partial class PAIComponent : Component
     [DataField, AutoNetworkedField]
     public EntityUid? MapAction;
 
+    [DataField]
+    public ProtoId<EntityPrototype> CrewManifestActionId = "ActionPAIViewManifest";
+
+    [DataField, AutoNetworkedField]
+    public EntityUid? CrewManifestViewAction;
+
     /// <summary>
     /// When microwaved there is this chance to brick the pai, kicking out its player and preventing it from being used again.
     /// </summary>

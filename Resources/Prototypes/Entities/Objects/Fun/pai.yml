@@ -17,6 +17,8 @@
       type: InstrumentBoundUserInterface
     - key: enum.StationMapUiKey.Key
       type: UntrackedStationMapBoundUserInterface
+    - key: enum.ViewManifestUiKey.Key
+      type: CrewManifestViewUserInterface
   - type: Sprite
     sprite: Objects/Fun/pai.rsi
     layers:
@@ -70,6 +72,9 @@
           Searching: { state: pai-searching-overlay }
           On: { state: pai-on-overlay }
   - type: StationMap
+  - type: CrewManifestViewer
+    unsecure: true
+    ownerKey: enum.ViewManifestUiKey.Key
 
 - type: entity
   parent: PersonalAI
@@ -153,3 +158,15 @@
       icon: Interface/home.png
       event: !type:OpenUiActionEvent
         key: enum.StationMapUiKey.Key
+     
+- type: entity
+  id: ActionPAIViewManifest
+  name: View Manifest
+  description: Open the crew manifest to become marginally more useful.
+  noSpawn: true
+  components: 
+  - type: InstantAction
+    checkCanInteract: false
+    icon: Interface/Actions/web.png
+    event: !type:OpenUiActionEvent
+      key: enum.ViewManifestUiKey.Key
