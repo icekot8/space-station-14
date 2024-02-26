@@ -40,7 +40,7 @@ public sealed class KillPersonConditionSystem : EntitySystem
         args.Progress = GetProgress(target.Value, comp.RequireDead);
     }
 
-    private void OnPersonAssigned(EntityUid uid, PickRandomPersonComponent comp, ref ObjectiveAssignedEvent args)
+    public void OnPersonAssigned(EntityUid uid, PickRandomPersonComponent comp, ref ObjectiveAssignedEvent args)
     {
         // invalid objective prototype
         if (!TryComp<TargetObjectiveComponent>(uid, out var target))

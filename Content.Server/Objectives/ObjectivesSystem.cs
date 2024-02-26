@@ -196,6 +196,30 @@ public sealed class ObjectivesSystem : SharedObjectivesSystem
         return null;
     }
 
+    public EntityUid? GetDuelKillObjective(EntityUid mindId, MindComponent mind)
+    {
+        const string killGroup = "TraitorObjectiveDuelKill";
+        if (!_prototypeManager.TryIndex<WeightedRandomPrototype>(killGroup, out var groups))
+        {
+            Log.Error($"Failed to find {killGroup} in the prototype manager");
+            return null;
+        }
+
+        return GetRandomObjective(mindId, mind, groups);
+    }
+
+    public EntityUid? GetDuelSaveObjective(EntityUid mindId, MindComponent mind)
+    {
+        const string saveGroup = "TraitorObjectiveDuelSave";
+        if (!_prototypeManager.TryIndex<WeightedRandomPrototype>(saveGroup, out var groups))
+        {
+            Log.Error($"Failed to find {saveGroup} in the prototype manager");
+            return null;
+        }
+
+        return GetRandomObjective(mindId, mind, groups);
+    }
+
     /// <summary>
     /// Returns whether a target is considered 'in custody' (cuffed on the shuttle).
     /// </summary>
