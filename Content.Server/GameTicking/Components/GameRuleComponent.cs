@@ -17,6 +17,12 @@ public sealed partial class GameRuleComponent : Component
     public TimeSpan ActivatedAt;
 
     /// <summary>
+    ///     In minutes, the amount of time before the same event can occur again
+    /// </summary>
+    [DataField]
+    public bool CanFalseActivate = false;
+
+    /// <summary>
     /// The minimum amount of players needed for this game rule.
     /// </summary>
     [DataField]

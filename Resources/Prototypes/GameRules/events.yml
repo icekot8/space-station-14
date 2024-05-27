@@ -432,15 +432,17 @@
   parent: BaseTraitorRule
   id: SleeperAgentsRule
   components:
+  - type: GameRule
+    canFalseActivate: true
   - type: StationEvent
     earliestStart: 30
     weight: 8
     minimumPlayers: 15
+    alertLevel: blue
     maxOccurrences: 1 # can only happen once per round
     startAnnouncement: station-event-communication-interception
     startAudio:
       path: /Audio/Announcements/intercept.ogg
-  - type: AlertLevelInterceptionRule
   - type: AntagSelection
     definitions:
     - prefRoles: [ Traitor ]
