@@ -99,7 +99,7 @@ public abstract class StationEventSystem<T> : GameRuleSystem<T> where T : ICompo
             if (_alertLevelSystem.GetLevel(chosenStation.Value) != stationEvent.NotIgnoredAlarmLevel)
                 return;
 
-            _alertLevelSystem.SetLevel(chosenStation.Value, component.AlertLevel, true, true, true);
+            _alertLevelSystem.SetLevel(chosenStation.Value, stationEvent.AlertLevel, true, true, true);
         }
         
         Audio.PlayGlobal(stationEvent.EndAudio, Filter.Broadcast(), true);

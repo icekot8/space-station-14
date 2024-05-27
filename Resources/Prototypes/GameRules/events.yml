@@ -443,6 +443,7 @@
     startAnnouncement: station-event-communication-interception
     startAudio:
       path: /Audio/Announcements/intercept.ogg
+  - type: MassHallucinationsRule # essentially (I hope) does nothing. it's just so that the event can complete, since removing "AlertLevelInterceptionRule" caused a problem with it 
   - type: AntagSelection
     definitions:
     - prefRoles: [ Traitor ]
