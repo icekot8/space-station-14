@@ -153,7 +153,6 @@ public sealed partial class GameTicker
         if (ruleData.CanFalseActivate)
         {
         	var i = _robustRandom.Next(1, 3);
-        	_adminLogger.Add(LogType.EventStarted, LogImpact.High, $"i = {i}");
         	switch (i)
         	{
         	    case 1:
