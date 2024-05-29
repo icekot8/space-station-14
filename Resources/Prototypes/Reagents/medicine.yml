@@ -33,11 +33,11 @@
             Poison: -1
       - !type:HealthChange
         conditions:
-        - !type:ReagentThreshold
-          min: 20
+        - !type:JobCondition
+          job: Captain
         damage:
           groups:
-            Brute: 2
+            Brute: -200
       - !type:Jitter
         conditions:
         - !type:ReagentThreshold

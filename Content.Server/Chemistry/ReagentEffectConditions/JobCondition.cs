@@ -31,30 +31,37 @@ using Robust.Shared.IoC;
 using Robust.Shared.Log;
 using Robust.Shared.Map;
 using Robust.Shared.Reflection;
+using Content.Server.Roles.Jobs;
+using Content.Server.Administration;
+using Content.Server.GameTicking.Components;
+using Content.Server.GameTicking.Rules.Components;
+using Content.Shared.Administration;
+using Content.Shared.Database;
+using Content.Shared.Prototypes;
+using JetBrains.Annotations;
+using Robust.Shared.Console;
+using Robust.Shared.Map;
+using Robust.Shared.Prototypes;
+using Content.Server.GameTicking;
 
 namespace Content.Server.Chemistry.ReagentEffectConditions
 {    
     public sealed partial class JobCondition : ReagentEffectCondition
     {
-        private SharedMindSystem? _minds;
-        private IAdminLogManager _adminLog = default!;
-        
         [DataField]
         public string Job = "Passenger";
-
+        
         public override bool Condition(ReagentEffectArgs args)
         {   
-            if (args.EntityManager.TryGetComponent(args.SolutionEntity, out MindContainerComponent? mind))
+            var job = new JobSystem();
+            args.EntityManager.TryGetComponent<MindContainerComponent>(args.SolutionEntity, out var mindContainer);
+            if (mindContainer != null && mindContainer.Mind != null)
             {
-                var jobTitle = "No Profession";
-                var jobs = args.EntityManager.System<SharedJobSystem>();
-                jobs.MindTryGetJobName(args.SolutionEntity, out string? prototype);
-                if (prototype != null)
-                    jobTitle = prototype;
-
-                if (Job == jobTitle) 
-                    _adminLog.Add(LogType.Action, LogImpact.Medium, $"jobtitle = job");
-                    return true;
+                if (job.MindTryGetJob(mindContainer?.Mind, out _, out var prototype) && prototype != null)
+                {
+                    if (prototype.LocalizedName == Job)
+                        return true;
+                }
             }
             
             return false;
