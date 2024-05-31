@@ -14,9 +14,8 @@ namespace Content.Server.Chemistry.ReagentEffectConditions
 {    
     public sealed partial class JobCondition : ReagentEffectCondition
     {
-        [DataField]
-        public string Job = "Passenger";
-        
+        [DataField] public List<string> Job = new List<string> {"Passenger"};
+                
         public override bool Condition(ReagentEffectArgs args)
         {   
             args.EntityManager.TryGetComponent<MindContainerComponent>(args.SolutionEntity, out var mindContainer);
@@ -25,17 +24,23 @@ namespace Content.Server.Chemistry.ReagentEffectConditions
                 var prototypeManager = IoCManager.Resolve<IPrototypeManager>();
                 if (args.EntityManager.TryGetComponent<JobComponent>(mindContainer?.Mind, out var comp) && prototypeManager.TryIndex(comp.Prototype, out var prototype))
                 {
-                    if (prototype.LocalizedName == Job)
-                        return true;
+                    foreach (var jobId in Job)
+                    {
+                        if (prototype.ID == jobId)
+                        {
+                            return true;
+                        }
+                    }
                 }
             }
             
             return false;
         }
-
+        
         public override string GuidebookExplanation(IPrototypeManager prototype)
         {
-            return Loc.GetString("reagent-effect-condition-guidebook-job-condition", ("job", Job));
+            string Jobs = String.Join(" or ", Job.ToArray());
+            return Loc.GetString("reagent-effect-condition-guidebook-job-condition", ("job", Jobs));
         }
     }
 }

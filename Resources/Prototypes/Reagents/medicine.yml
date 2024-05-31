@@ -31,13 +31,6 @@
         damage:
           types:
             Poison: -1
-      - !type:HealthChange
-        conditions:
-        - !type:JobCondition
-          job: Captain
-        damage:
-          groups:
-            Brute: -200
       - !type:Jitter
         conditions:
         - !type:ReagentThreshold

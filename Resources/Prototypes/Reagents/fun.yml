@@ -317,6 +317,18 @@
         visualType: Large
         messages: [ "laughter-effect-control-laughter" ]
         probability: 0.2
+    Narcotic:
+      effects:
+      - !type:GenericStatusEffect
+        conditions:
+        - !type:JobCondition
+          job: 
+           - Clown
+        key: SeeingRainbows
+        component: SeeingRainbows
+        type: Add
+        time: 6
+        refresh: false
 
 - type: reagent
   id: JuiceThatMakesYouWeh

@@ -300,7 +300,21 @@
       effects:
       - !type:SatiateThirst
         factor: 2
-        # TODO heal mimes
+    Medicine:
+      effects:
+      - !type:HealthChange
+        conditions:
+        - !type:JobCondition
+          job: 
+           - Mime
+        damage:
+          groups:
+            Brute: -1
+          types:
+            Poison: -0.5
+            Heat: -0.33
+            Shock: -0.33
+            Cold: -0.33
 
 - type: reagent
   id: NuclearCola
@@ -328,6 +342,17 @@
         damage:
           types:
             Poison: 1
+      - !type:HealthChange
+        conditions:
+        - !type:JobCondition
+          job: 
+           - Quartermaster
+           - SalvageSpecialist
+        - !type:ReagentThreshold
+          min: 1
+        damage:
+          types:
+            Poison: -1
   fizziness: 0.5
 
 - type: reagent
@@ -446,6 +471,18 @@
       effects:
       - !type:SatiateHunger
         factor: 1
+    Poison:
+      effects:
+      - !type:HealthChange
+        conditions:
+        - !type:JobCondition
+          job:
+           - MedicalDoctor
+           - Paramedic
+           - ChiefMedicalOfficer
+        damage:
+          types:
+            Poison: 2
 
 - type: reagent
   id: HotRamen
@@ -460,6 +497,18 @@
       effects:
       - !type:SatiateHunger
         factor: 4
+    Poison:
+      effects:
+      - !type:HealthChange
+        conditions:
+        - !type:JobCondition
+          job:
+           - MedicalDoctor
+           - Paramedic
+           - ChiefMedicalOfficer
+        damage:
+          types:
+            Poison: 2
 
 - type: reagent
   id: ArnoldPalmer
@@ -535,6 +584,28 @@
   metamorphicMaxFillLevels: 5
   metamorphicFillBaseName: fill-
   metamorphicChangeColor: true
+  metabolisms:
+    Drink:
+      effects:
+      - !type:SatiateThirst
+        factor: 3
+    Medicine: 
+      effects:
+      - !type:HealthChange
+        conditions:
+        - !type:JobCondition
+          job: 
+           - Librarian
+        - !type:TotalDamage
+          max: 50
+        damage:
+          groups:
+            Brute: -1
+          types:
+            Poison: -0.5 ##Should be about what it was when it healed the toxin group
+            Heat: -0.33
+            Shock: -0.33
+            Cold: -0.33
   fizziness: 0.3
 
 - type: reagent

@@ -203,6 +203,14 @@
           shouldHave: false
       - !type:Drunk
         boozePower: 2
+      - !type:HealthChange
+        conditions:
+        - !type:JobCondition
+          job: 
+           - Chaplain
+        damage:
+          types:
+            Poison: 0.3
 
 - type: reagent
   id: Gin
@@ -420,6 +428,18 @@
       - !type:AdjustReagent
         reagent: Ethanol
         amount: 0.2
+    Narcotic:
+      effects:
+      - !type:GenericStatusEffect
+        conditions:
+        - !type:JobCondition
+          job: 
+           - Detective
+        key: SeeingRainbows
+        component: SeeingRainbows
+        type: Add
+        time: 4
+        refresh: false
 
 - type: reagent
   id: Wine
@@ -460,6 +480,37 @@
       - !type:AdjustReagent
         reagent: Ethanol
         amount: 0.3
+    Medicine:
+      effects:
+      - !type:HealthChange
+        conditions:
+        - !type:JobCondition
+          job: 
+           - Captain
+           - CentralCommandOfficial
+           - HeadOfPersonnel
+        damage:
+          types:
+            Poison: -3
+      - !type:HealthChange
+        conditions:
+        - !type:JobCondition
+          job: 
+           - ChiefEngineer
+           - ChiefMedicalOfficer
+           - ResearchDirector
+           - HeadOfSecurity
+        damage:
+          types:
+            Poison: -2
+      - !type:HealthChange
+        conditions:
+        - !type:JobCondition
+          job: 
+           - Lawyer
+        damage:
+          types:
+            Poison: -1
   fizziness: 0.8
 
 # Mixed Alcohol
@@ -561,6 +612,21 @@
       - !type:AdjustReagent
         reagent: Ethanol
         amount: 0.15
+    Medicine:
+      effects:
+      - !type:AdjustTemperature
+        conditions:
+        - !type:Temperature
+          max: 293.15
+        - !type:JobCondition
+          job: 
+           - Scientist
+           - ResearchDirector
+           - StationEngineer
+           - AtmosphericTechnician
+           - ChiefEngineer
+        amount: 30000
+    
 
 - type: reagent
   id: AtomicBomb
@@ -640,6 +706,35 @@
   metamorphicMaxFillLevels: 5
   metamorphicFillBaseName: fill-
   metamorphicChangeColor: false
+  metabolisms:
+    Drink:
+      effects:
+      - !type:SatiateThirst
+        factor: 2
+      - !type:AdjustReagent
+        reagent: Ethanol
+        amount: 0.06
+    Medicine: 
+      effects:
+      - !type:GenericStatusEffect
+        conditions:
+        - !type:JobCondition
+          job: 
+           - Clown
+        key: Stutter
+        component: StutteringAccent
+    Narcotic:
+      effects:
+      - !type:GenericStatusEffect
+        conditions:
+        - !type:JobCondition
+          job: 
+           - Clown
+        key: SeeingRainbows
+        component: SeeingRainbows
+        type: Add
+        time: 10
+        refresh: false
 
 - type: reagent
   id: Barefoot
@@ -672,12 +767,104 @@
   metamorphicChangeColor: false
   metabolisms:
     Drink:
+      metabolismRate: 0.3
       effects:
       - !type:SatiateThirst
         factor: 2
       - !type:AdjustReagent
         reagent: Ethanol
         amount: 0.15
+      - !type:MovespeedModifier
+        conditions:
+        - !type:JobCondition
+          job: 
+           - SecurityOfficer
+           - Detective
+           - Warden
+           - HeadOfSecurity
+        sprintSpeedModifier: 1.2
+      - !type:GenericStatusEffect
+        conditions:
+        - !type:JobCondition
+          job: 
+           - SecurityOfficer
+           - Detective
+           - Warden
+           - HeadOfSecurity
+        key: KnockedDown
+        time: 1
+        type: Remove
+      - !type:GenericStatusEffect
+        conditions:
+        - !type:JobCondition
+          job: 
+           - SecurityOfficer
+           - Detective
+           - Warden
+           - HeadOfSecurity
+        key: Stun
+        time: 1
+        type: Remove
+    Narcotic:
+      effects:
+      - !type:GenericStatusEffect
+        conditions:
+        - !type:ReagentThreshold
+          min: 10
+        key: SeeingRainbows
+        component: SeeingRainbows
+        type: Add
+        time: 4
+        refresh: false
+      - !type:GenericStatusEffect
+        conditions:
+        - !type:JobCondition
+          job: 
+           - SecurityOfficer
+           - Detective
+           - Warden
+           - HeadOfSecurity
+        key: SeeingRainbows
+        component: SeeingRainbows
+        type: Remove
+        time: 4
+        refresh: false
+    Poison:
+      metabolismRate: 0.2
+      effects:
+      - !type:Electrocute
+        conditions:
+        - !type:ReagentThreshold
+          min: 5
+        - !type:JobCondition
+          job: 
+           - Bartender
+           - Passenger
+           - Clown
+           - CargoTechnician
+           - SalvageSpecialist
+           - Botanist
+           - Chaplain
+           - Chef
+           - Janitor
+           - Librarian
+           - Mime
+           - Musician
+           - ServiceWorker
+           - Visitor
+           - TechnicalAssistant
+           - StationEngineer
+           - AtmosphericTechnician
+           - MedicalIntern
+           - MedicalDoctor
+           - Chemist
+           - ResearchAssistant
+           - Scientist
+           - Zookeeper
+           - Reporter
+           - Psychologist
+           - Boxer
+        probability: 0.35
   fizziness: 0.3
 
 - type: reagent
@@ -875,9 +1062,33 @@
       - !type:AdjustReagent
         reagent: Ethanol
         amount: 0.05
+      - !type:AdjustReagent
+        conditions:
+        - !type:JobCondition
+          job: 
+           - MedicalDoctor
+           - Paramedic
+           - Chemist
+           - ChiefMedicalOfficer
+        reagent: Ethanol
+        amount: -0.025
     Medicine:
       effects:
       - !type:HealthChange
+        damage:
+          groups:
+            Burn: -1
+            Brute: -1
+            Airloss: -1
+            Toxin: -1
+      - !type:HealthChange
+        conditions:
+        - !type:JobCondition
+          job: 
+           - MedicalDoctor
+           - Paramedic
+           - Chemist
+           - ChiefMedicalOfficer
         damage:
           groups:
             Burn: -1
@@ -1017,6 +1228,21 @@
       - !type:AdjustReagent
         reagent: Ethanol
         amount: 0.2
+    Medicine:
+      effects:
+      - !type:HealthChange
+        conditions:
+        - !type:JobCondition
+          job:
+           - CentralCommandOfficial
+        - !type:ReagentThreshold
+          min: 10
+        damage:
+          groups:
+            Burn: -2
+            Toxin: -2
+            Airloss: -2
+            Brute: -2
 
 - type: reagent
   id: Grog
@@ -1179,6 +1405,26 @@
   metamorphicMaxFillLevels: 3
   metamorphicFillBaseName: fill-
   metamorphicChangeColor: false
+  metabolisms:
+    Drink:
+      effects:
+      - !type:SatiateThirst
+        factor: 2
+      - !type:AdjustReagent
+        reagent: Ethanol
+        amount: 0.06
+    Medicine:
+      effects:
+      - !type:HealthChange
+        conditions:
+        - !type:JobCondition
+          job: 
+           - Detective
+        - !type:ReagentThreshold
+          min: 10
+        damage:
+          types:
+            Piercing: -2
 
 - type: reagent
   id: ManhattanProject
@@ -1194,6 +1440,26 @@
   metamorphicMaxFillLevels: 3
   metamorphicFillBaseName: fill-
   metamorphicChangeColor: false
+  metabolisms:
+    Drink:
+      effects:
+      - !type:SatiateThirst
+        factor: 2
+      - !type:AdjustReagent
+        reagent: Ethanol
+        amount: 0.06
+    Medicine:
+      effects:
+      - !type:HealthChange
+        conditions:
+        - !type:JobCondition
+          job: 
+           - Detective
+        - !type:ReagentThreshold
+          min: 10
+        damage:
+          types:
+            Piercing: -2
 
 - type: reagent
   id: ManlyDorf
@@ -1352,6 +1618,29 @@
       - !type:AdjustReagent
         reagent: Ethanol
         amount: 0.2
+      - !type:AdjustReagent
+        conditions:
+        - !type:JobCondition
+          job: 
+           - HeadOfPersonnel
+        reagent: Ethanol
+        amount: -0.1
+    Medicine:
+      effects:
+      - !type:ModifyBleedAmount
+        conditions:
+        - !type:JobCondition
+          job: 
+           - HeadOfPersonnel
+        amount: -0.5
+      - !type:HealthChange
+        conditions:
+        - !type:JobCondition
+          job: 
+           - HeadOfPersonnel
+        damage:
+          types:
+            Slash: -2
 
 - type: reagent
   id: Patron
@@ -1441,6 +1730,20 @@
       - !type:AdjustReagent
         reagent: Ethanol
         amount: 0.07
+    Medicine:
+      effects:
+        - !type:HealthChange
+          conditions:
+          - !type:TotalDamage
+            min: 10
+          - !type:JobCondition
+            job:
+             - StationEngineer
+             - AtmosphericTechnician
+             - ChiefEngineer
+          damage:
+            groups:
+              Toxin: -2
 
 - type: reagent
   id: CogChamp
@@ -1490,6 +1793,17 @@
         component: Muted
       - !type:SatiateThirst
         factor: 2
+      - !type:GenericStatusEffect
+        conditions: 
+        - !type:JobCondition
+          job: 
+           - Captain
+           - HeadOfSecurity
+        - !type:ReagentThreshold
+          min: 1
+        key: Muted
+        component: Muted
+        type: Remove
 
 - type: reagent
   id: Singulo
@@ -1703,6 +2017,18 @@
       - !type:AdjustReagent
         reagent: Ethanol
         amount: 0.07
+    Narcotic:
+      effects:
+      - !type:GenericStatusEffect
+        conditions:
+        - !type:JobCondition
+          job:
+           - Detective
+        key: SeeingRainbows
+        component: SeeingRainbows
+        type: Add
+        time: 4
+        refresh: false
   fizziness: 0.3
 
 - type: reagent
@@ -1727,6 +2053,18 @@
       - !type:AdjustReagent
         reagent: Ethanol
         amount: 0.07
+    Narcotic:
+      effects:
+      - !type:GenericStatusEffect
+        conditions:
+        - !type:JobCondition
+          job:
+           - Detective
+        key: SeeingRainbows
+        component: SeeingRainbows
+        type: Add
+        time: 2
+        refresh: false
   fizziness: 0.4
 
 - type: reagent
@@ -1822,6 +2160,16 @@
         - !type:AdjustReagent
           reagent: Theobromine
           amount: 0.05
+    Medicine:
+      effects:
+      - !type:HealthChange
+        conditions:
+        - !type:JobCondition
+          job: 
+           - SalvageSpecialist
+        damage:
+          types:
+            Caustic: -0.5
   fizziness: 0.15
 
 - type: reagent
@@ -1876,6 +2224,17 @@
         - !type:AdjustReagent
           reagent: Theobromine
           amount: 0.05
+    Medicine:
+      effects:
+      - !type:HealthChange
+        conditions:
+        - !type:JobCondition
+          job: 
+           - Passenger
+           - TechnicalAssistant
+        damage:
+          types:
+            Shock: -1.5
   fizziness: 0.25
 
 - type: reagent
