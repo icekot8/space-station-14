@@ -198,8 +198,7 @@ public abstract class SharedGrapplingGunSystem : EntitySystem
             _physics.WakeBody(joint.BodyAUid);
             _physics.WakeBody(joint.BodyBUid);
 
-//            if (distance.Length == 10f && grappling.AutoReeling && grappling.Projectile != null)
-            if (distance.Length <= distance.MinLength && grappling.Projectile != null && grappling.AutoReeling)
+            if (distance.Length <= distance.MinLength && grappling.Projectile != null && grappling.AutoDeleteOnMinLength)
             {
                 QueueDel(grappling.Projectile.Value);
                 _gun.ChangeBasicEntityAmmoCount(uid,  1);

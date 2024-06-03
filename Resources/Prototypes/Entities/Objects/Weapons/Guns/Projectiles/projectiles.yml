@@ -925,7 +925,8 @@
       deleteOnCollide: false
       damage:
         types:
-          Blunt: 0
+          Blunt: 15
+      stunDuration: 2.0
     - type: Fixtures
       fixtures:
         projectile:
@@ -936,8 +937,9 @@
           mask:
             - Impassable
             - BulletImpassable
+    - type: StaminaDamageOnCollide
+      damage: 30
     - type: GrapplingProjectile
-      autoDeleteOnMinLength: true
 
 - type: entity
   name : disabler bolt smg

@@ -1,6 +1,7 @@
 using Content.Server.Administration.Logs;
 using Content.Server.Effects;
 using Content.Server.Weapons.Ranged.Systems;
+using Content.Server.Stunnable;
 using Content.Shared.Camera;
 using Content.Shared.Damage;
 using Content.Shared.Database;
@@ -17,6 +18,7 @@ public sealed class ProjectileSystem : SharedProjectileSystem
     [Dependency] private readonly DamageableSystem _damageableSystem = default!;
     [Dependency] private readonly GunSystem _guns = default!;
     [Dependency] private readonly SharedCameraRecoilSystem _sharedCameraRecoil = default!;
+    [Dependency] private readonly StunSystem _stun = default!;
 
     public override void Initialize()
     {
@@ -48,6 +50,9 @@ public sealed class ProjectileSystem : SharedProjectileSystem
         var direction = args.OurBody.LinearVelocity.Normalized();
         var modifiedDamage = _damageableSystem.TryChangeDamage(target, ev.Damage, component.IgnoreResistances, origin: component.Shooter);
         var deleted = Deleted(target);
+
+	    if (component.StunDuration != null)
+		    _stun.TryParalyze(target, component.StunDuration.Value, true);
 
         if (modifiedDamage is not null && EntityManager.EntityExists(component.Shooter))
         {

@@ -38,6 +38,9 @@ public sealed partial class ProjectileComponent : Component
     [DataField(required: true)] [ViewVariables(VVAccess.ReadWrite)]
     public DamageSpecifier Damage = new();
 
+    [DataField]
+    public TimeSpan? StunDuration = TimeSpan.FromSeconds(0.0);
+
     /// <summary>
     ///     If the projectile should be deleted on collision.
     /// </summary>

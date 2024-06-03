@@ -23,6 +23,9 @@ public sealed partial class GrapplingGunComponent : Component
     [ViewVariables(VVAccess.ReadWrite), DataField("autoReeling"), AutoNetworkedField]
     public bool AutoReeling = false;
 
+    [ViewVariables(VVAccess.ReadWrite), DataField("autoDeleteOnMinLength"), AutoNetworkedField]
+    public bool AutoDeleteOnMinLength = false;
+
     [ViewVariables(VVAccess.ReadWrite), DataField("reelSound"), AutoNetworkedField]
     public SoundSpecifier? ReelSound = new SoundPathSpecifier("/Audio/Weapons/reel.ogg")
     {
