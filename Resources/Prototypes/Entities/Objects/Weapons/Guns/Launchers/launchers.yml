@@ -375,3 +375,16 @@
       tags:
         - CartridgeRocket
     proto: ImmovableRodSlow
+
+- type: entity
+  name: battle grappling gun
+  parent: WeaponGrapplingGun
+  id: WeaponBattleGrapplingGun
+  components:
+    - type: GrapplingGun
+      autoReeling: true
+      reelRate: 10.0
+      autoDeleteOnMinLength: true
+    - type: BasicEntityAmmoProvider
+      proto: BattleGrapplingHook
+      capacity: 1

@@ -31,8 +31,6 @@ public abstract class SharedGrapplingGunSystem : EntitySystem
 
     public const string GrapplingJoint = "grappling";
 
-    public const float ReelRate = 2.5f;
-
     public override void Initialize()
     {
         base.Initialize();
@@ -88,6 +86,13 @@ public abstract class SharedGrapplingGunSystem : EntitySystem
         {
             return;
         }
+
+        if (grappling.AutoReeling == true)
+        {
+            SetReeling(hands.ActiveHandEntity.Value, grappling, true, player.Value);
+            msg.Reeling = true;
+        }
+
 
         if (msg.Reeling &&
             (!TryComp<CombatModeComponent>(player, out var combatMode) ||
@@ -187,12 +192,19 @@ public abstract class SharedGrapplingGunSystem : EntitySystem
             }
 
             // TODO: This should be on engine.
-            distance.MaxLength = MathF.Max(distance.MinLength, distance.MaxLength - ReelRate * frameTime);
+            distance.MaxLength = MathF.Max(distance.MinLength, distance.MaxLength - grappling.ReelRate * frameTime);
             distance.Length = MathF.Min(distance.MaxLength, distance.Length);
 
             _physics.WakeBody(joint.BodyAUid);
             _physics.WakeBody(joint.BodyBUid);
 
+//            if (distance.Length == 10f && grappling.AutoReeling && grappling.Projectile != null)
+            if (distance.Length <= distance.MinLength && grappling.Projectile != null && grappling.AutoReeling)
+            {
+                QueueDel(grappling.Projectile.Value);
+                _gun.ChangeBasicEntityAmmoCount(uid,  1);
+            }
+            
             if (jointComp.Relay != null)
             {
                 _physics.WakeBody(jointComp.Relay.Value);
