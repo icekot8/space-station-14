@@ -172,6 +172,12 @@ public abstract class SharedGrapplingGunSystem : EntitySystem
 
         while (query.MoveNext(out var uid, out var grappling))
         {
+            if (grappling.AutoReeling || !grappling.Reeling)
+            {
+                SetReeling(uid, grappling, true, null);
+                grappling.Reeling = true;
+            }
+            
             if (!grappling.Reeling)
             {
                 if (Timing.IsFirstTimePredicted)

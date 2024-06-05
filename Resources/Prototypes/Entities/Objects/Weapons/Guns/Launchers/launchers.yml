@@ -396,8 +396,8 @@
       autoReeling: true
       reelRate: 10.0
       autoDeleteOnMinLength: true
-    - type: RechargeBasicEntityAmmo
-      rechargeCooldown: 2.0
+#    - type: RechargeBasicEntityAmmo
+#      rechargeCooldown: 2.0
     - type: BasicEntityAmmoProvider
       proto: BattleGrapplingHook
       capacity: 1
