@@ -925,8 +925,8 @@
       deleteOnCollide: false
       damage:
         types:
-          Blunt: 15
-      stunDuration: 2.0
+          Blunt: 5
+      stunDuration: 0.5
     - type: Fixtures
       fixtures:
         projectile:

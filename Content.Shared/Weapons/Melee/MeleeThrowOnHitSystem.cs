@@ -2,6 +2,7 @@ using System.Numerics;
 using Content.Shared.Construction.Components;
 using Content.Shared.Weapons.Melee.Components;
 using Content.Shared.Weapons.Melee.Events;
+using Content.Shared.Body.Components;
 using Robust.Shared.Physics;
 using Robust.Shared.Physics.Components;
 using Robust.Shared.Physics.Events;
@@ -40,6 +41,9 @@ public sealed class MeleeThrowOnHitSystem : EntitySystem
             var hitPos = _transform.GetMapCoordinates(hit).Position;
             var angle = args.Direction ?? hitPos - mapPos;
             if (angle == Vector2.Zero)
+                continue;
+
+	        if (!comp.CanThrowNoBodyes && !HasComp<BodyComponent>(hit))
                 continue;
 
             if (!CanThrowOnHit(ent, hit))

@@ -381,10 +381,37 @@
   parent: WeaponGrapplingGun
   id: WeaponBattleGrapplingGun
   components:
+    - type: Item
+      size: Large
+    - type: UseDelayOnShoot
+    - type: UseDelay
+      delay: 3.0
+    - type: Gun
+      soundGunshot: /Audio/Weapons/plasma_cutter.ogg
+      fireRate: 1
+      useKey: false
+    - type: Wieldable
+    - type: GunRequiresWield
     - type: GrapplingGun
       autoReeling: true
       reelRate: 10.0
       autoDeleteOnMinLength: true
+    - type: RechargeBasicEntityAmmo
+      rechargeCooldown: 2.0
     - type: BasicEntityAmmoProvider
       proto: BattleGrapplingHook
       capacity: 1
+    - type: MeleeWeapon
+      attackRate: 1.0
+      wideAnimationRotation: -135
+      damage:
+        types:
+          Blunt: 15
+      bluntStaminaDamageFactor: 1.5
+      soundHit:
+        collection: MetalThud
+    - type: MeleeThrowOnHit
+      speed: 3.0
+      lifetime: 0.5
+      unanchorOnHit: false
+      canThrowNoBodyes: false

@@ -34,6 +34,10 @@ public sealed partial class MeleeThrowOnHitComponent : Component
     [DataField, ViewVariables(VVAccess.ReadWrite)]
     public float MinLifetime = 0.05f;
 
+    [DataField, ViewVariables(VVAccess.ReadWrite)]
+    [AutoNetworkedField]
+    public bool CanThrowNoBodyes;
+
     /// <summary>
     /// Whether or not anchorable entities should be unanchored when hit.
     /// </summary>
