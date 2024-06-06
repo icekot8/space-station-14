@@ -44,9 +44,6 @@ public sealed class GrapplingGunSystem : SharedGrapplingGunSystem
 
         var reelKey = _input.CmdStates.GetState(EngineKeyFunctions.UseSecondary) == BoundKeyState.Down;
 
-        if (grappling.AutoReeling)
-            RaisePredictiveEvent(new RequestGrapplingReelMessage(reelKey));
-
         if (!TryComp<CombatModeComponent>(local, out var combatMode) ||
             !combatMode.IsInCombatMode)
         {

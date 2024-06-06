@@ -87,13 +87,6 @@ public abstract class SharedGrapplingGunSystem : EntitySystem
             return;
         }
 
-        if (grappling.AutoReeling == true)
-        {
-            SetReeling(hands.ActiveHandEntity.Value, grappling, true, player.Value);
-            msg.Reeling = true;
-        }
-
-
         if (msg.Reeling &&
             (!TryComp<CombatModeComponent>(player, out var combatMode) ||
              !combatMode.IsInCombatMode))
@@ -172,7 +165,7 @@ public abstract class SharedGrapplingGunSystem : EntitySystem
 
         while (query.MoveNext(out var uid, out var grappling))
         {
-            if (grappling.AutoReeling || !grappling.Reeling)
+            if (grappling.AutoReeling && !grappling.Reeling)
             {
                 SetReeling(uid, grappling, true, null);
                 grappling.Reeling = true;
