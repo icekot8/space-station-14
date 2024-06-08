@@ -25,6 +25,8 @@ public abstract class SharedMaterialStorageSystem : EntitySystem
     /// </summary>
     private const int DefaultSheetVolume = 100;
 
+    private readonly Dictionary<EntityUid, List<EntityUid>> LinkedStorages = new Dictionary<EntityUid, List<EntityUid>>();
+
     /// <inheritdoc/>
     public override void Initialize()
     {
@@ -45,6 +47,17 @@ public abstract class SharedMaterialStorageSystem : EntitySystem
 
             _appearance.SetData(uid, MaterialStorageVisuals.Inserting, false);
             RemComp(uid, inserting);
+        }
+
+        var entities = EntityManager.EntityQueryEnumerator<MaterialStorageComponent>();
+
+        while (entities.MoveNext(out var uid, out var storage))
+        {
+            if (storage != null)
+            {
+                storage.LinkedStorages.Add(uid);
+                LinkedStorages[uid] = storage.LinkedStorages;
+            }
         }
     }
 
@@ -164,16 +177,27 @@ public abstract class SharedMaterialStorageSystem : EntitySystem
     {
         if (!Resolve(uid, ref component))
             return false;
+
         if (!CanChangeMaterialAmount(uid, materialId, volume, component))
             return false;
+
         component.Storage.TryAdd(materialId, 0);
         component.Storage[materialId] += volume;
+
+        foreach (var linkedUid in component.LinkedStorages)
+        {
+            if (linkedUid != uid && Resolve(linkedUid, ref component))
+            {
+                TryChangeMaterialAmount(linkedUid, materialId, volume, component);
+            }
+        }
 
         var ev = new MaterialAmountChangedEvent();
         RaiseLocalEvent(uid, ref ev);
 
-        if (dirty)
+        if (dirty && component != null)
             Dirty(uid, component);
+
         return true;
     }
 
@@ -275,6 +299,29 @@ public abstract class SharedMaterialStorageSystem : EntitySystem
         }
         _appearance.SetData(receiver, MaterialStorageVisuals.Inserting, true);
         Dirty(receiver, insertingComp);
+
+        foreach (var linkedUid in storage.LinkedStorages)
+        {
+            if (linkedUid != receiver && Resolve(linkedUid, ref storage))
+            {
+                foreach (var (mat, vol) in composition.MaterialComposition)
+                {
+                    TryChangeMaterialAmount(linkedUid, mat, vol * multiplier, storage);
+                }
+
+                if (TryComp<InsertingMaterialStorageComponent>(linkedUid, out var linkedInsertingComp))
+                {
+                    linkedInsertingComp.EndTime = _timing.CurTime + storage.InsertionTime;
+                    if (!storage.IgnoreColor)
+                    {
+                        _prototype.TryIndex<MaterialPrototype>(composition.MaterialComposition.Keys.First(), out var lastMat);
+                        linkedInsertingComp.MaterialColor = lastMat?.Color;
+                    }
+                    _appearance.SetData(linkedUid, MaterialStorageVisuals.Inserting, true);
+                    Dirty(linkedUid, linkedInsertingComp);
+                }
+            }
+        }
 
         var ev = new MaterialEntityInsertedEvent(material);
         RaiseLocalEvent(receiver, ref ev);
