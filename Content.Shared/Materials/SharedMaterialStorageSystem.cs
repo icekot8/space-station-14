@@ -49,17 +49,15 @@ public abstract class SharedMaterialStorageSystem : EntitySystem
             RemComp(uid, inserting);
         }
 
-        var entities = EntityManager.EntityQuery<MaterialStorageComponent>();
+        var entities = EntityManager.EntityQueryEnumerator<MaterialStorageComponent>();
 
-        foreach (var entity in entities)
+        while (entities.MoveNext(out var uid, out var storage))
         {
-            TryComp<MaterialStorageComponent>(entity.Owner, out var storage);
-
-            if (entity.Owner != null && storage != null)
-                storage.LinkedStorages.Add(entity.Owner);
-
-            if (entity.Owner != null && storage != null)
-                LinkedStorages[entity.Owner] = storage.LinkedStorages;
+            if (storage != null)
+            {
+                storage.LinkedStorages.Add(uid);
+                LinkedStorages[uid] = storage.LinkedStorages;
+            }
         }
     }
 
