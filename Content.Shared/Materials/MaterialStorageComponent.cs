@@ -13,8 +13,6 @@ public sealed partial class MaterialStorageComponent : Component
     [DataField, AutoNetworkedField]
     public Dictionary<ProtoId<MaterialPrototype>, int> Storage { get; set; } = new();
 
-    public List<EntityUid> LinkedStorages { get; } = new List<EntityUid>();
-
     /// <summary>
     /// Whether or not interacting with the materialstorage inserts the material in hand.
     /// </summary>
