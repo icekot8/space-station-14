@@ -70,6 +70,7 @@
   name: trait-socialanxiety-name
   description: trait-socialanxiety-desc
   category: SpeechTraits
+  slider: true
   cost: 2
   components:
     - type: StutteringAccent

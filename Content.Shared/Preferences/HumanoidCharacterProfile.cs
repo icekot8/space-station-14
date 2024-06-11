@@ -15,6 +15,8 @@ using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 using Robust.Shared.Serialization;
 using Robust.Shared.Utility;
+using Content.Shared.Speech.EntitySystems;
+using Content.Shared.Speech.Components;
 
 namespace Content.Shared.Preferences
 {
@@ -387,7 +389,7 @@ namespace Content.Shared.Preferences
             };
         }
 
-        public HumanoidCharacterProfile WithTraitPreference(ProtoId<TraitPrototype> traitId, string? categoryId, bool pref)
+        public HumanoidCharacterProfile WithTraitPreference(ProtoId<TraitPrototype> traitId, string? categoryId, bool pref, float sliderValue)
         {
             var prototypeManager = IoCManager.Resolve<IPrototypeManager>();
             var traitProto = prototypeManager.Index(traitId);
@@ -430,6 +432,13 @@ namespace Content.Shared.Preferences
                 list.Remove(traitId);
             }
 
+//            if (this.Components?.OfType<StutteringAccentComponent>()?.FirstOrDefault() is StutteringAccentComponent accent)
+            if (traitProto.Components?.OfType<StutteringAccentComponent>()?.FirstOrDefault() is StutteringAccentComponent accent && sliderValue != 0)
+//&& traitProto is StutteringAccentComponent)
+            {
+                accent.MatchRandomProb = sliderValue;
+            }
+            
             return new(this)
             {
                 _traitPreferences = list,
